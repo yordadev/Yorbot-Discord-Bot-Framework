@@ -1,0 +1,12 @@
+{
+    "name": "yordadev/yorbot",
+    "description": "My first discord php bot.",
+    "authors": [{
+        "name": "yorda",
+        "email": "hello@yorda.email"
+    }],
+    "require": {
+        "team-reflex/discord-php": "^4.0"
+    },
+    "require-dev": {}
+}
