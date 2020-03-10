@@ -10,8 +10,7 @@ class AdminOnly extends Middleware
 
     public function guard(Object $message)
     {
-        
-        if($message->author->id === '28844569388905440'){
+        if($message->author->id === '288445693889085440'){
             return true;
         }
         $this->unauthorized($message);

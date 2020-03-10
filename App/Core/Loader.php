@@ -7,12 +7,10 @@ include __DIR__ . '/Resources/Exception.php';
 include __DIR__ . '/Resources/Route.php';
 include __DIR__ . '/Resources/Middleware.php';
 
-use App\Core\Resources\Middleware;
 use App\Core\Resources\Command;
-use App\Core\Resources\Exception;
 use App\Core\Resources\Route;
 
-class Structure
+class Loader
 {
     protected $commands;
     protected $routes;
@@ -62,7 +60,7 @@ class Structure
      * @return array $commands
      * 
      */
-    protected function getCommands()
+    public function getCommands()
     {
         // return an array of command obj's
         return $this->commands;
@@ -94,7 +92,7 @@ class Structure
      * @return array $routes;
      * 
      */
-    protected function getRoutes()
+    public function getRoutes()
     {
         // return an array of route obj's
         return $this->routes;

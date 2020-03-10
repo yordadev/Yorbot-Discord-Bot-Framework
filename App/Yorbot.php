@@ -1,16 +1,16 @@
 <?php
 namespace App;
 
-include __DIR__ . '/Core/Structure.php';
+include __DIR__ . '/Core/Loader.php';
 include __DIR__ . '/Commands/ExampleCommand.php';
 include __DIR__ . '/Middleware/AdminOnly.php';
 
-use App\Core\Structure;
+use App\Core\Loader;
 use App\Middleware\AdminOnly;
 use App\Core\Resources\Route;
 use App\Commands\ExampleCommand;
 
-class Yorbot extends Structure {
+class Yorbot extends Loader {
 
     public function __construct()
     {
