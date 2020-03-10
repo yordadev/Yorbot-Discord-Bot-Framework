@@ -9,10 +9,9 @@ class Route
     protected $command;
     protected $middleware;
 
-    public function __construct(Command $command, Middleware $middleware)
+    public function __construct(Command $command)
     {
-        $this->command = $command;
-        $this->middleware = $middleware;
+        $this->command    = $command;
     }
 
     /*
@@ -25,12 +24,16 @@ class Route
      * 
      */
 
-    public function hasPossibleCommand(Object $message)
+    public function hasCommand(Object $message)
     {
-        $extractor = str_split($message->content);
-
+        $extractor = explode(" ", $message->content);
+        
         if ($this->command->getPrefix() === $extractor[0]) {
-            return true;
+            
+            if($this->command->getName() == $extractor[1]) {
+                
+                return true;
+            }
         }
         return false;
     }
@@ -72,7 +75,7 @@ class Route
      */
     public function getMiddleware()
     {
-        return $this->middleware;
+        return $this->command->getMiddleware();
     }
 
     /*
@@ -86,9 +89,10 @@ class Route
      * @return boolean
      * 
      */
-    protected function middleware(Middleware $middleware, Object $message)
-    {
-        if (!is_null($middleware) && $middleware->handle()) {
+
+
+    public function hasMiddleware(){
+        if(!is_null($this->getMiddleware())){
             return true;
         }
         return false;

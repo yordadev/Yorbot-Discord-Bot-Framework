@@ -16,7 +16,7 @@ class Structure
 {
     protected $commands;
     protected $routes;
-    protected $middleware;
+    
 
     /*
      *
@@ -26,14 +26,7 @@ class Structure
      * @return void
      * 
      */
-    protected function __construct()
-    {
-        $this->commands   = [];
-        $this->routes     = [];
-        $this->middleware = [];
 
-        $this->prepareApplication();
-    }
 
     /*
      *
@@ -43,7 +36,7 @@ class Structure
      * @return void
      * 
      */
-    private function prepareApplication()
+    private function registerCoreServices()
     {
         /*
          *
@@ -64,13 +57,16 @@ class Structure
 
     }
 
-    protected function routes(Object $message){
+    public function routes(Object $message){
         // parse the message for any commands;
+        
         foreach($this->routes as $route){
-            if($route->hasPossibleCommand($message)){
+            
+            if($route->hasCommand($message)){
+                
                 return [
                     'command'    => $route->getCommand(),
-                    'middleware' => $route->getMiddleware()
+                    'middleware' => $route->getCommand()->getMiddleware()
                 ];
             }
         }
@@ -88,12 +84,13 @@ class Structure
      * @return void
      * 
      */
-    protected function registerCommand(Command $command)
+    public function registerCommand(Command $command)
     {
         // to do
         // check if command is already registered
 
         // push the command
+        
         array_push($this->commands, $command);
     }
 
@@ -113,51 +110,23 @@ class Structure
 
     /*
      *
-     * Purpose: Registering middleware into the App Object
-     * Description: Registering middleware lets the App object know that it exists and can be executed if called
-     * for conducting processing prior to executing a command. 
-     * 
-     * @param Middleware $middleware
-     * @return void
-     * 
-     */
-    protected function registerMiddleware(Middleware $middleware)
-    {
-        // to do
-        // check if middleware is already registered
-
-        // push the middleware
-        array_push($this->middleware, $middleware);
-    }
-
-    /*
-     *
-     * Description: Return registered commands
-     * 
-     * @return array $commands
-     * 
-     */
-    protected function getMiddleware()
-    {
-        // return an array of command obj's
-        return $this->middleware;
-    }
-
-    /*
-     *
      * Description: Registering a route into the App Object to organize the structure of the commands injecting middleware onto a command via the route
      * 
      * @param Route $route
      * @return void
      * 
      */
-    protected function registerRoute(Route $route)
+    public function registerRoute(Route $route)
     {
         // to do
         // check if command is already registered
 
         // push the route
         array_push($this->routes, $route);
+    }
+
+    private function setMiddleware(Middleware $middleware){
+        $this->middleware = $middleware;
     }
 
     /*

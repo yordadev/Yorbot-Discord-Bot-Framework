@@ -7,60 +7,31 @@ use App\Yorbot;
 
 try {
     $discord = new \Discord\Discord([
-        'token' => 'removed',
+        'token' => 'Njg2NDMxMTU2Mjg3NDM4OTA5.XmbPLw.wvnNIwzKfn-6KIcNKGka19KK7cA',
     ]);
 
     $app = new Yorbot;
 
-    $app->boot();
     $discord->on('ready', function ($discord) use ($app) {
 
-        $discord->on('message', function ($message) use ($app) {
-
-            /*
-             * 
-             * @param Object $message
-             * @return Route $route ?? null
-             * 
-             */
-            $route = $app->routes($message);
-
-            if (!is_null($route)) {
-
-                /*
-                 * 
-                 * @property Middleware $route['middleware']
-                 *  
-                 * @param Middleware $route['middleware]
-                 * @param Object $message
-                 * 
-                 * @return boolean
-                 */
-                if ($route->middleware($route['middleware'], $message)) {
-
-                    /*
-                     * 
-                     * @property Middleware $route['command]
-                     * 
-                     * @param Object $message
-                     * @return void
-                     * 
-                     */
-                    $route['command']->handle($message);
+        try {
+            $discord->on('message', function ($message) use ($app) {
+                
+                $route = $app->routes($message);
+                
+                if (!is_null($route)) {
+                    
+                    if($route['middleware']->guard($message)){
+                        $route['command']->handle($message);
+                    }
                 }
-            }
-        });
+            });
+        } catch (\Exception $e){
+            var_dump($e);
+        }
     });
 
     $discord->run();
 } catch (\Exception $e) {
-    /*
-     *
-     * Exception Handling System
-     * 
-     * /Exception/example.php
-     * 
-     */
-    
     var_dump($e);
 }
