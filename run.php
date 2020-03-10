@@ -7,7 +7,7 @@ use App\Yorbot;
 
 try {
     $discord = new \Discord\Discord([
-        'token' => 'removed',
+        'token' => '',
     ]);
 
     $app = new Yorbot;

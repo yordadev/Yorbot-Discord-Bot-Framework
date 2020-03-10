@@ -16,46 +16,7 @@ class Structure
 {
     protected $commands;
     protected $routes;
-    
 
-    /*
-     *
-     * Description: overwrite any memory with empty array && prepare the bot to bootup.
-     * 
-     * @param Command $command
-     * @return void
-     * 
-     */
-
-
-    /*
-     *
-     * Description: Register the base foundation for command, middleware and routing to be extended within the app
-     * 
-     * @param Command $command
-     * @return void
-     * 
-     */
-    private function registerCoreServices()
-    {
-        /*
-         *
-         * Add core middleware and shit here
-         * 
-         *
-         * 
-            $middleware = new Middleware;
-            $this->registerMiddleware($middleware);
-
-            $command = new Command('>>', 'bot admin commands');
-            $this->registerCommand($command);
-
-            $route = new Route($command, $middleware);
-            $this->registerRoute($route);
-         *
-         */
-
-    }
 
     public function routes(Object $message){
         // parse the message for any commands;
@@ -125,9 +86,6 @@ class Structure
         array_push($this->routes, $route);
     }
 
-    private function setMiddleware(Middleware $middleware){
-        $this->middleware = $middleware;
-    }
 
     /*
      *
