@@ -7,7 +7,7 @@ use App\Yorbot;
 
 try {
     $discord = new \Discord\Discord([
-        'token' => 'Njg2NDMxMTU2Mjg3NDM4OTA5.XmbPLw.wvnNIwzKfn-6KIcNKGka19KK7cA',
+        'token' => 'removed',
     ]);
 
     $app = new Yorbot;
@@ -18,7 +18,7 @@ try {
             $discord->on('message', function ($message) use ($app) {
                 
                 $route = $app->routes($message);
-                
+                print_r($route);
                 if (!is_null($route)) {
                     
                     if($route['middleware']->guard($message)){

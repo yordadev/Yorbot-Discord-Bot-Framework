@@ -29,7 +29,7 @@ class Route
         $extractor = explode(" ", $message->content);
         
         if ($this->command->getPrefix() === $extractor[0]) {
-            
+
             if($this->command->getName() == $extractor[1]) {
                 
                 return true;
